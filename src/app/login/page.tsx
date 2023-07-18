@@ -36,7 +36,7 @@ export default function LoginPage() {
     if(user.email.length > 0 && user.password.length >0) {
       setButtonDisabled(false);
     } else {
-      setButtonDisabled(false)
+      setButtonDisabled(true)
     }
   },[user])
   return (
