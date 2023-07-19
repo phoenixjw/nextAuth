@@ -3,6 +3,7 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useState, useEffect} from "react";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function VerifyEmailPage() {
     const [ token, setToken] = useState("");
@@ -10,13 +11,16 @@ export default function VerifyEmailPage() {
     const [error, setError] = useState(false)
 
     const verifyUserEmail = async () => {
+        const loadingToastId = toast.loading("Processing...");
         try {
            await axios.post('/api/users/verifyemail', {token})
            setVerified(true);
         } catch(error: any) {
             setError(true)
-            console.log(error.response.data)
+            toast.error(error.response.data.message);
         }
+
+        toast.dismiss(loadingToastId);
     }
 
 
